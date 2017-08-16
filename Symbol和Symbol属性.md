@@ -1,22 +1,22 @@
-## 引子
+## 引子 ##
 
 > *Symbol* 是什么？   
 > 刚看到这一块并且读完概述之后我还是自问了一句“*Symbol* 是什么？ ”。又读了几遍才有了印象。*Symbol* 本身是一种新的数据类型，它是 *JavaScript* 语言的第7种数据类型。     
 > “全文完”  
 > 不知道各位看官懂吗？我是懂了...
 
-## 概述
+## 概述 ##
 
-### 由来
+### 由来 ###
 
 ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因。
-### 定义说明
+### 定义说明 ###
 
 *Symbol* 是一种特殊的、不可变的数据类型，可以作为对象属性的标识符使用。 *Symbol*  对象是一个 *symbol primitive data type* 的隐式对象包装器。
 
 *Symbol* 数据类型是一个原始数据类型。
 
-### Symbol语法格式
+### Symbol语法格式 ###
 Symbol([description]) //description是可选的
 
 
@@ -31,7 +31,7 @@ console.log(name, name1) // Symbol() Symbol(sym1)
 const name = new Symbol(); 
 //Symbol is not a constructor
 ```
-### 作为属性名的 Symbol
+### 作为属性名的 Symbol ###
 前面说个每一个Symbol都是独一无二的，都是不相等的，意味着 *Symbol* 值可以作为标识符用于对象的属性名，保证不会出现同名的属性。
 ```
 // 没有参数的情况
@@ -78,7 +78,7 @@ a.mySymbol = 'Hello!';
 a[mySymbol] // undefined
 a['mySymbol'] // "Hello!"
 ```
-### 属性名的遍历
+### 属性名的遍历 ###
 Symbol 作为属性名，该属性不会出现在 *for...in* 、 *for...of* 循环中，也不会被 *Object.keys()* 、 *Object.getOwnPropertyNames()* 、 *JSON.stringify()* 返回。但是，它也不是私有属性，有一个 *Object.getOwnPropertySymbols* 方法，可以获取指定对象的所有 *Symbol* 属性名。
 
 ```
@@ -94,7 +94,7 @@ var objectSymbols = Object.getOwnPropertySymbols(obj);
 objectSymbols
 // [Symbol(a), Symbol(b)]
 ```
-### Symbol全局共享
+### Symbol全局共享 ###
 ES6提供了一个注册机制，当你注册Symbol之后，就能在全局共享注册表里面的Symbol。Symbol的注册表和对象表很像，都是key、value结构，只不过这个value是Symbol值。 （key, Symbol） 语法：
 
 ```
@@ -109,7 +109,19 @@ Symbol.for("bar") === Symbol.for("bar")
 Symbol("bar") === Symbol("bar")
 // false
 ```
-### 内置Symbol 值
+#### Symbol.keyFor() ####
+*Symbol.keyFor()* 方法返回一个已登记的 *Symbol* 类型值的 *Key*
+
+```
+var s1 = Symbol.for("foo");
+Symbol.keyFor(s1) // "foo"
+
+var s2 = Symbol("foo");
+Symbol.keyFor(s2) // undefined
+```
+
+
+### 内置Symbol 值 ###
 除了定义自己使用的Symbol值以外，ES6还提供了11个内置的Symbol值，指向语言内部使用的方法。
 这些方法用的可能不多，了解下就好
 
